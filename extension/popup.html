@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 280px;
+            padding: 1rem 2rem;
+        }
+        p {
+            margin: 0 auto;
+        }
+        .logo {
+            width: 180px;
+        }
+        .disable {
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        .flex-vertical {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+        }
+        .offline-doc-path {
+            width: 100%;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<div style="text-align: center;">
+    <img class="logo" src="icon.png" alt="flutter-search-extension">
+    <h2>Flutter Search Extension</h2>
+</div>
+<div style="margin-top: 20px">
+    <label>
+        Open search result in
+        <select name="open-type">
+            <option value="current-tab">current tab</option>
+            <option value="new-tab">new tab</option>
+        </select>
+    </label>
+</div>
+</body>
+<script src="settings.js"></script>
+<script src="omnibox.js"></script>
+<script src="popup.js"></script>
+</html>
