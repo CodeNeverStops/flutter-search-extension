@@ -25,7 +25,6 @@ function search(q) {
         var lowerName = element.name.toLowerCase();
         var lowerQualifiedName = element.qualifiedName.toLowerCase();
         var lowerQ = q.toLowerCase();
-        var previousMatchCount = allMatches.length;
 
         if (element.name === q || element.qualifiedName === q) {
             allMatches.push(score(element, 2000));
