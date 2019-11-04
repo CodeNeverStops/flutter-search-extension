@@ -19,6 +19,9 @@ Omnibox.prototype.bootstrap = function() {
         if (!query) return;
 
         const searchResults = window.search(query);
+        if (!searchResults) {
+            return;
+        }
         this.suggestResults = [];
 
         for (let result of searchResults) {
@@ -29,15 +32,19 @@ Omnibox.prototype.bootstrap = function() {
     });
 
     this.browser.omnibox.onInputEntered.addListener(text => {
-        this.navigateToUrl(`https://baidu.com/s?wd=${text}`);
+        this.navigateToUrl(text);
     })
 
 }
 
 Omnibox.prototype.appendSuggestResult = function(item) {
-    let description = this.tagged("match", item);
+    let description = this.tagged("match", item.name) + ' ' + this.tagged("dim", item.type);
+    if (item.enclosedBy) {
+        description += ` from ${item.enclosedBy.name}`;
+    }
+
     this.suggestResults.push({
-        content: item,
+        content: item.url,
         description: description
     });
 }
@@ -51,13 +58,3 @@ Omnibox.prototype.navigateToUrl = function(url) {
         this.browser.tabs.create({url: url});
     }
 };
-
-function escape(text) {
-    text = text || "";
-    return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
