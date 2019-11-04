@@ -62,7 +62,7 @@ function search(q) {
 
     var sortedMatches = [];
     for (var j in allMatches) {
-        if (sortedMatches.length >= 5) {
+        if (sortedMatches.length > 5) {
             break;
         }
         var e = allMatches[j].e;
