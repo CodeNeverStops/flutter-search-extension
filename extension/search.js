@@ -61,7 +61,10 @@ function search(q) {
     });
 
     var sortedMatches = [];
-    for (var j = 0; j < 5; j++) {
+    for (var j in allMatches) {
+        if (sortedMatches.length >= 5) {
+            break;
+        }
         var e = allMatches[j].e;
         // console.log(`match name:${e.name}, qualifiedName:${e.qualifiedName}, type:${e.type}, depth:${e.overriddenDepth}, score:${allMatches[j].score}`);
         e.url = `${rootPath}flutter/${e.href}`;
