@@ -17,7 +17,7 @@ function search(q) {
     function score(element, num) {
         num -= element.overriddenDepth * 10;
         var weightFactor = weights[element.type] || 4;
-        return { e: element, score: (num / weightFactor) >> 0 };
+        return { e: element, score: (num / weightFactor) >> 0};
     }
 
     for (var i = 0; i < searchIndex.length; i++) {
@@ -62,8 +62,9 @@ function search(q) {
     });
 
     var sortedMatches = [];
-    for (var j = 0; j < allMatches.length; j++) {
+    for (var j = 0; j < 5; j++) {
         var e = allMatches[j].e;
+        // console.log(`match name:${e.name}, qualifiedName:${e.qualifiedName}, type:${e.type}, depth:${e.overriddenDepth}, score:${allMatches[j].score}`);
         e.url = `${rootPath}flutter/${e.href}`;
         sortedMatches.push(e);
     }
