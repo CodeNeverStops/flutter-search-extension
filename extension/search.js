@@ -12,7 +12,6 @@ var weights = {
 };
 
 function search(q) {
-    console.log('query: ' + q);
     var allMatches = [];
 
     function score(element, num) {
@@ -21,8 +20,8 @@ function search(q) {
         return { e: element, score: (num / weightFactor) >> 0 };
     }
 
-    for (var i in searchIndex) {
-        element = searchIndex[i];
+    for (var i = 0; i < searchIndex.length; i++) {
+        var element = searchIndex[i];
         var lowerName = element.name.toLowerCase();
         var lowerQualifiedName = element.qualifiedName.toLowerCase();
         var lowerQ = q.toLowerCase();
@@ -38,7 +37,9 @@ function search(q) {
             allMatches.push(score(element, 1700));
         }
 
-        if (q.length <= 2 || previousMatchCount < allMatches.length) break;
+        if (q.length <= 2) {
+            break;
+        }
 
         if (element.name.indexOf(q) === 0 || element.qualifiedName.indexOf(q) === 0) {
             allMatches.push(score(element, 750));
@@ -61,11 +62,8 @@ function search(q) {
     });
 
     var sortedMatches = [];
-    for (var i = 0; i < allMatches.length; i++) {
-        if (sortedMatches.length >= 5) {
-            break;
-        }
-        var e = allMatches[i].e;
+    for (var j = 0; j < allMatches.length; j++) {
+        var e = allMatches[j].e;
         e.url = `${rootPath}flutter/${e.href}`;
         sortedMatches.push(e);
     }
