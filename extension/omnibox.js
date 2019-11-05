@@ -6,20 +6,20 @@ function Omnibox() {
     this.browser = this.isChrome ? window.chrome : window.browser;
 }
 
-/*
 Omnibox.prototype.setupDefaultSuggestion = function() {
+    var globalSearchPath = window.globalSearchPath();
     this.browser.omnibox.setDefaultSuggestion({
-        description: `Search Flutter docs ${ this.isChrome ? " for <match>%s</match>" : ""} on ${rootPath}`
+        description: `Search Flutter docs ${ this.isChrome ? " for <match>%s</match>" : ""} on ${globalSearchPath}`
     });
 };
-*/
 
 Omnibox.prototype.bootstrap = function() {
-    // this.setupDefaultSuggestion();
+    this.setupDefaultSuggestion();
 
     this.browser.omnibox.onInputChanged.addListener((query, suggestFn) => {
         if (!query) return;
 
+        this.setupDefaultSuggestion();
         const searchResults = window.search(query);
         if (!searchResults) {
             return;
@@ -37,6 +37,8 @@ Omnibox.prototype.bootstrap = function() {
         if (/^https?:\/\//i.test(text)) {
             this.navigateToUrl(text);
         } else {
+            var globalSearchPath = window.globalSearchPath();
+            this.navigateToUrl(`${globalSearchPath}search?q=` + encodeURIComponent(text));
         }
     })
 

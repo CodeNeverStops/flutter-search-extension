@@ -4,5 +4,11 @@ const settings = {
     },
     set openType(type) {
         localStorage.setItem("open-type", type);
+    },
+    get mirror() {
+        return localStorage.getItem("mirror") || "official";
+    },
+    set mirror(mirror) {
+        localStorage.setItem("mirror", mirror);
     }
 }

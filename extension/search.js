@@ -1,5 +1,3 @@
-const rootPath = "https://api.flutter.dev/";
-
 var weights = {
     'library': 2,
     'class': 2,
@@ -60,6 +58,7 @@ function search(q) {
         }
     });
 
+    var rootPath = window.rootPath();
     var sortedMatches = [];
     for (var j in allMatches) {
         if (sortedMatches.length > 5) {
@@ -74,5 +73,26 @@ function search(q) {
     return sortedMatches;
 }
 
-window.rootPath = rootPath;
+function rootPath() {
+    var rootPath = '';
+    if (settings.mirror == 'flutter-cn') {
+        rootPath = 'https://api.flutter-io.cn/';
+    } else {
+        rootPath = 'https://api.flutter.dev/';
+    }
+    return rootPath;
+}
+
+function globalSearchPath() {
+    var path = '';
+    if (settings.mirror == 'flutter-cn') {
+        path = 'https://flutter.cn/';
+    } else {
+        path = 'https://flutter.dev/';
+    }
+    return path;
+}
+
 window.search = search;
+window.rootPath = rootPath;
+window.globalSearchPath = globalSearchPath;
